@@ -23,6 +23,7 @@ namespace upc {
     } else if(name == "distor") {
       pEffect = (Effect *) new distor(parameters);
     }
+    
     return pEffect;
   }
 }

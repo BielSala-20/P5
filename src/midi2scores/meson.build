@@ -19,6 +19,7 @@ executable(
     install: true,
 )
 
+
 midi2sco = 'midi2sco.py'
 source = join_paths(meson.source_root(), 'src/midi2scores', midi2sco)   # Ruta completa
 prog = midi2sco.split('.')[0]                                             # Nombre sin extensión

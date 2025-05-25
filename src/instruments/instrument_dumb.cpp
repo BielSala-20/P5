@@ -64,6 +64,7 @@ const vector<float> & InstrumentDumb::synthesize() {
     if (index == tbl.size())
       index = 0;
   }
+  
   adsr(x); //apply envelope to x and update internal status of ADSR
 
   return x;

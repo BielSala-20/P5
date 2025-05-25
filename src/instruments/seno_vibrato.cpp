@@ -102,7 +102,7 @@ const vector<float> & seno_vibrato::synthesize() {
     return x;
   //Activa, se aplica la envolvente ADSR, aquí es donde se recorre la tabla
   for (unsigned int i=0; i<x.size(); ++i) {
-    // Primera aproximación: redondeando el indice requerido para acceder a valores de la tabla
+    // Primera aproximació: redondeando el indice requerido para acceder a valores de la tabla
     float new_index = round(index * step);
     x[i] = A * (tbl[new_index]);
     index += (1 + I * sin(phase_m)/step);

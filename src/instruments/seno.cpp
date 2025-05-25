@@ -84,7 +84,7 @@ const vector<float> & seno::synthesize() {
   //Inactiva si ya ha sido marcada como inactiva
   else if (not bActive)
     return x;
-  //Activa, se aplica la envolvente ADSR, aquí es donde se recorre la tabla
+  //Activa, s'aplica l'envolvent adsr
   for (unsigned int i=0; i<x.size(); ++i) {
     // Primera aproximación: redondeando el indice requerido para acceder a valores de la tabla
     float new_index = round(index * step);

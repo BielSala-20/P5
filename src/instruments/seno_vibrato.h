@@ -6,6 +6,7 @@
 #include "instrument.h"
 #include "envelope_adsr.h"
 
+
 namespace upc {
   class seno_vibrato: public upc::Instrument {
     EnvelopeADSR adsr;

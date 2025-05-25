@@ -28,6 +28,7 @@ void distor::command(unsigned int comm) {
   if (comm == 1) fase = 0;
 }
 
+
 void distor::operator()(std::vector<float> &x){
   for (unsigned int i = 0; i < x.size(); i++) {
       x[i] = 2*x[i];
