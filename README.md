@@ -293,9 +293,9 @@ La tercera és per oblidar, amb la campana com a solista; suposo que és perquè
 
 Els comandos que hem utilitzat són els següents:
 
-  synth toy_story_clarinete.orc ToyStory_A_Friend_in_me.sco toy_story_percutido.wav
+- work % synth toy_story_clarinete.orc ToyStory_A_Friend_in_me.sco toy_story_percutido.wav
 
-  synth toy_story_clarinete.orc ToyStory_A_Friend_in_me.sco toy_story_clarinete.wav
+-	work % synth toy_story_clarinete.orc ToyStory_A_Friend_in_me.sco toy_story_clarinete.wav
 
 
 
