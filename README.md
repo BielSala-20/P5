@@ -81,6 +81,7 @@ mediante búsqueda de los valores en una tabla.
 
 - Incluya, a continuación, el código del fichero `seno.cpp` con los métodos de la clase Seno.
 
+'''cpp
 #include <iostream>
 #include <math.h>
 #include "seno.h"
@@ -180,7 +181,7 @@ const vector<float> & seno::synthesize() {
 
   return x;
 }
-
+'''
 
 
 - Explique qué método se ha seguido para asignar un valor a la señal a partir de los contenidos en la tabla,
@@ -295,7 +296,7 @@ La tercera és per oblidar, amb la campana com a solista; suposo que és perquè
 Els comandos que hem utilitzat són els següents:
 
   synth toy_story_clarinete.orc ToyStory_A_Friend_in_me.sco toy_story_percutido.wav
-  
+
   synth toy_story_clarinete.orc ToyStory_A_Friend_in_me.sco toy_story_clarinete.wav
 
 
