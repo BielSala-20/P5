@@ -200,6 +200,29 @@ const vector<float> & seno::synthesize() {
   sinusoidal. Deberá explicar detalladamente cómo se manifiestan los parámetros del efecto (frecuencia e
   índice de modulación) en la señal generada (se valorará que la explicación esté contenida en las propias
   gráficas, sin necesidad de *literatura*).
+
+***Tremolo***
+
+  Hem generat dues gràfiques de Trèmolo, una amb una profunditat de modulació molt gran, per tant, hi haurà variacions molt grans en el volum del so i la seva amplitud, i, en canvi, una freqüència de modulació petita, és a dir, que hi haurà canvis cada més temps, no són gaire seguits els canvis.
+
+  ![alt text](/img/tremolo.png)
+
+  En el segon cas que es mostra a continuació, les variacions seran més versemblants i així l’amplitud de la sinusoide no es veurà tan afectada:
+
+  ![alt text](/img/tremolo2.png)
+
+  ***Vibrato***
+
+  Pel que fa al *vibrato*, sabem que varia la freqüència fonamental de la nota en funció dels paràmetres d’*Intensitat* i de la *freqüència de modulació*. A la següent imatge podem observar com totes dues comencen alhora, però no oscil·len a la mateixa freqüència, ja que el vibrato la va canviant:
+
+  ![alt text](/img/vibrato.png)
+
+  ![alt text](/img/vibrato2.png)
+
+  En aquesta segona imatge podem veure com, mentre que en la segona gràfica la freqüència es manté constant, a la de dalt la freqüència va variant, comprimint i estirant la freqüència fonamental d’una mateixa nota. Aquest efecte pot resultar agradable en certs estils de música i instruments, sempre que no ens passem canviant la freqüència. En l’exemple de la guitarra o el baix, queda molt bé en certs moments moure una mica el dit per la corda per canviar la tensió produïda i generar vibrato, però si ens desplacem dos trasts avall, ja sona malament, perquè és clarament una altra nota. De fet, moltes guitarres porten un pont flotant o semiflotant per produir l’efecte de vibrato, que queda molt bé si se sap balancejar correctament el pont, canviant la tensió de les cordes i, per tant, la seva afinació en diversos estils i cançons.
+
+
+
 - Si ha generado algún efecto por su cuenta, explique en qué consiste, cómo lo ha implementado y qué
   resultado ha producido. Incluya, en el directorio `work/ejemplos`, los ficheros necesarios para apreciar
   el efecto, e indique, a continuación, la orden necesaria para generar los ficheros de audio usando el
@@ -214,6 +237,11 @@ deberá venir expresado en semitonos.
 
 - Use el instrumento para generar un vibrato de *parámetros razonables* e incluya una gráfica en la que se
   vea, claramente, la correspondencia entre los valores `N1`, `N2` e `I` con la señal obtenida.
+
+  Mitjançant les explicacions incloses a la pràctica i l’article de John M. Chowning, i basant-nos en l’instrument seno, hem produït un instrument que anomenem seno_vibrato, que en realitat es correspon amb l’instrument produït mitjançant Síntesi FM.
+
+  ![alt text](/img/sintesisFM.jpeg)
+
 - Use el instrumento para generar un sonido tipo clarinete y otro tipo campana. Tome los parámetros del
   sonido (N1, N2 e I) y de la envolvente ADSR del citado artículo. Con estos sonidos, genere sendas escalas
   diatónicas (fichero `doremi.sco`) y ponga el resultado en los ficheros `work/doremi/clarinete.wav` y
@@ -221,6 +249,19 @@ deberá venir expresado en semitonos.
   * También puede colgar en el directorio work/doremi otras escalas usando sonidos *interesantes*. Por
     ejemplo, violines, pianos, percusiones, espadas láser de la
 	[Guerra de las Galaxias](https://www.starwars.com/), etc.
+
+  Basant-nos en l’article de John M. Chowning i en el nostre codi, hem buscat la relació entre N1/N2 i l’envolupant ADSR per a cadascun dels instruments que se’ns demana (campana i clarinet).
+
+  ***Clarinete***
+
+  Aquí veiem, segons l’article, l’envolupant ADSR de l’instrument clarinet. A partir d’això, definim els nostres paràmetres. També, segons l’article, la relació N1/N2 ha de ser 3/1, i així ho hem deixat.
+
+  ![alt text](/img/clarinete.png)
+
+  A la següent gràfica, observem l’envolupant ADSR d’una campana. També veiem que la relació N1/N2 ha de ser 1/1.4; aquesta sí que la seguim, perquè, a més, en no ser una relació entera, generem una relació inharmònica com la de les campanes.
+
+  ![alt text](/img/bell.png)
+
 
 ### Orquestación usando el programa synth.
 
@@ -241,6 +282,23 @@ de su agrado o composición. Se valorará la riqueza instrumental, su modelado y
   `work/music`.
 - Indique, a continuación, la orden necesaria para generar cada una de las señales usando los distintos
   ficheros.
+
+
+Fent servir el programa synth, hem generat la cançó de Toy Story assignant els instruments que se’ns demanaven. He fet tres versions, totes amb el mateix instrument greu:
+
+La primera té el clarinet fet amb síntesi FM com a solista.
+
+La segona té un instrument percutit com a solista.
+
+La tercera és per oblidar, amb la campana com a solista; suposo que és perquè, en generar inharmònics, no està en el to de l’altre instrument.
+
+Els comandos que hem utilitzat són els següents:
+
+  synth toy_story_clarinete.orc ToyStory_A_Friend_in_me.sco toy_story_percutido.wav
+  
+  synth toy_story_clarinete.orc ToyStory_A_Friend_in_me.sco toy_story_clarinete.wav
+
+
 
 > NOTA:
 >
