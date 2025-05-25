@@ -227,6 +227,74 @@ mediante búsqueda de los valores en una tabla.
   el efecto, e indique, a continuación, la orden necesaria para generar los ficheros de audio usando el
   programa `synth`.
 
+  En el nostre cas, sabem que la distorsió del senyal es molt famos en certs estils de musica, com podria ser el rock, per tant aquesta saturació es produeix fent saturar el senyal que surt de l'instrument. És a dir, elevant la tensió del senyal que en surt i retallant-la per la part superior, com si l’amplificador no pogués generar tota la seva amplitud.
+
+  Basant-nos en això, hem generat un filtre de distorsió molt senzill, agafant com a model el filtre de trèmolo. Com que és un filtre bàsic, només hem utilitzat un paràmetre (A_MAX), que representa l’amplitud del senyal a partir de la qual començarà a saturar. Com més petit és aquest valor, més distorsió s’aconsegueix, ja que el senyal comença a distorsionar abans. De fet, aquest retall genera harmònics superiors a múltiples de la freqüència fonamental, i amb això generem la distorsió: com més harmònics, més distorsió; com més aviat retallem el senyal, més distorsionada serà.
+
+  El nostre algoritme senzill primer multiplica per 4 l’amplitud del senyal original i després en retalla el valor a partir d’una certa amplitud.
+    
+     ```c
+    #include <iostream>
+    #include <math.h>
+    #include "distor.h"
+    #include "keyvalue.h"
+
+    #include <stdlib.h>
+
+    using namespace upc;
+    using namespace std;
+
+    static float SamplingRate = 44100;
+
+    distor::distor(const std::string &param) {
+      fase = 0;
+
+      KeyValue kv(param);
+
+      if (!kv.to_float("A_MAX", A_MAX))
+        A_MAX = 0.5; //default value
+
+      if (!kv.to_float("fm", fm))
+        fm = 10; //default value
+
+      inc_fase = 2 * M_PI * fm / SamplingRate;
+    }
+
+    void distor::command(unsigned int comm) {
+      if (comm == 1) fase = 0;
+    }
+
+    void distor::operator()(std::vector<float> &x){
+      for (unsigned int i = 0; i < x.size(); i++) {
+        x[i] = 2*x[i];
+        if (x[i] > A_MAX){
+           x[i] = A_MAX;
+        } else if (x[i] < -A_MAX){
+            x[i] = -A_MAX;
+        }
+      }
+    }
+    ```
+    
+    Per cridar aquest efecte, li assignem un número d’efecte, igual que es fa amb el trèmolo o el vibrato, i el definim al fitxer effects.orc.
+    
+    <img src="img/num_dist.png" width="640" align="center">
+    
+    Després modifiquem el fitxer doremi.sco com fèiem amb el trèmolo i el vibrato. En aquest cas, li hem assignat el número 13, el mateix que al trèmolo, així que l’aplicaríem de la mateixa manera.
+    
+    Observant els resultats, veiem que hem aconseguit l'efecte desitjat.
+
+    
+    **1. Una distorsió suau**: Apreciem com el senyal manté la seva forma gairebé tot el temps, però quan supera un cert nivell ja no conserva la forma arrodonida del senyal sinusoidal, sinó que satura, generant una distorsió molt suau, ja que només satura en punts molt concrets.
+
+    
+    <img src="img/distorsion.png" width="640" align="center">
+    
+    **2. Distorsió heavy**: Si fixem un valor de A_MAX petit, aconseguirem que el senyal quedi molt distorsionat i que gairebé perdi del tot la seva forma sinusoidal. Un dels efectes secundaris d’una distorsió elevada és la pèrdua de dinàmica que genera el músic en tocar un instrument: a causa d’aquesta forta saturació, la nota gairebé sempre satura quan es toca amb força, aplicant-se un efecte de compressió on tocar fort o normal sona pràcticament igual. Només es nota la diferència si es toca molt fluix, quan el senyal no satura. A la imatge s’observa com fins i tot amplituds petites estan saturades.
+    
+    <img src="img/distorsion2.png" width="640" align="center">
+
+
 ### Síntesis FM.
 
 Construya un instrumento de síntesis FM, según las explicaciones contenidas en el enunciado y el artículo
